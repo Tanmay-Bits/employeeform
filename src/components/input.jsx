@@ -7,6 +7,7 @@ import TextField from "@material-ui/core/TextField";
 
 const styles = theme => ({
   container: {
+    display: "flex",
     flexWrap: "wrap"
   },
   textField: {
@@ -36,9 +37,25 @@ class TextBox extends Component {
     favquote: "Without a goal,you can't score"
   };
 
-  handleChange = name => event => {
+  handleChange = (
+    firstname,
+    lastname,
+    qualification,
+    emailid,
+    hobbies,
+    favouritemovie,
+    favouritefood,
+    favquote
+  ) => event => {
     this.setState({
-      [name]: event.target.value
+      [firstname]: event.target.value,
+      [lastname]: event.target.value,
+      [qualification]: event.target.value,
+      [emailid]: event.target.value,
+      [hobbies]: event.target.value,
+      [favouritemovie]: event.target.value,
+      [favouritefood]: event.target.value,
+      [favquote]: event.target.value
     });
   };
 
