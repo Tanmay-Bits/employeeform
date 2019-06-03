@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
+import { createStore } from "redux";
 
 const styles = theme => ({
   container: {
@@ -23,7 +24,28 @@ const styles = theme => ({
     width: 50
   }
 });
+const newEntry = name => event => {
+  return {
+    type: "newentry",
+    payload: {
+      [name]: event.target.value
+    }
+  };
+};
+const entries = (previousentries = [], action) => {
+  if (action.type === "newentry") {
+    return [...previousentries, action.payload.name];
+  } else {
+    return previousentries;
+  }
+};
+const store = createStore(entries);
 
+const mapDispatchToProps = dispatch => ({
+  newEntry: () => dispatch(newEntry())
+});
+
+console.log(store.getState());
 class TextBox extends Component {
   state = {
     firstname: "Robinx",
@@ -37,25 +59,9 @@ class TextBox extends Component {
     favquote: "Without a goal,you can't score"
   };
 
-  handleChange = (
-    firstname,
-    lastname,
-    qualification,
-    emailid,
-    hobbies,
-    favouritemovie,
-    favouritefood,
-    favquote
-  ) => event => {
+  handleChange = name => event => {
     this.setState({
-      [firstname]: event.target.value,
-      [lastname]: event.target.value,
-      [qualification]: event.target.value,
-      [emailid]: event.target.value,
-      [hobbies]: event.target.value,
-      [favouritemovie]: event.target.value,
-      [favouritefood]: event.target.value,
-      [favquote]: event.target.value
+      [name]: event.target.value
     });
   };
 
@@ -88,7 +94,7 @@ class TextBox extends Component {
           label="Qualification"
           className={classes.textField}
           value={this.state.qualification}
-          onChange={this.handleChange("Qualification")}
+          onChange={this.handleChange("qualification")}
           variant="outlined"
           style={{ opacity: "0.5", background: "#fff" }}
         />
@@ -97,7 +103,7 @@ class TextBox extends Component {
           label="Email Id"
           className={classes.textField}
           value={this.state.emailid}
-          onChange={this.handleChange("Emailid")}
+          onChange={this.handleChange("emailid")}
           variant="outlined"
           style={{ opacity: "0.5", background: "#fff" }}
         />{" "}
@@ -106,16 +112,16 @@ class TextBox extends Component {
           label="Hobbies"
           className={classes.textField}
           value={this.state.hobbies}
-          onChange={this.handleChange("Hobbies")}
+          onChange={this.handleChange("hobbies")}
           variant="outlined"
           style={{ opacity: "0.5", background: "#fff" }}
-        />{" "}
+        />
         <TextField
           id="favouritemovie"
           label="Favourite Movie"
           className={classes.textField}
           value={this.state.favouritemovie}
-          onChange={this.handleChange("Favourite Movie")}
+          onChange={this.handleChange("favouritemovie")}
           variant="outlined"
           style={{ opacity: "0.5", background: "#fff" }}
         />{" "}
@@ -124,7 +130,7 @@ class TextBox extends Component {
           label="Favourite Food"
           className={classes.textField}
           value={this.state.favouritefood}
-          onChange={this.handleChange("Favourite Food")}
+          onChange={this.handleChange("favouritefood")}
           variant="outlined"
           style={{ opacity: "0.5", background: "#fff" }}
         />{" "}
@@ -133,7 +139,7 @@ class TextBox extends Component {
           label="Favourite Book"
           className={classes.textField}
           value={this.state.favouritebook}
-          onChange={this.handleChange("Favourite Book")}
+          onChange={this.handleChange("favouritebook")}
           variant="outlined"
           style={{ opacity: "0.5", background: "#fff" }}
         />{" "}
@@ -142,10 +148,38 @@ class TextBox extends Component {
           label="Favourite Quote"
           className={classes.textField}
           value={this.state.favquote}
-          onChange={this.handleChange("Favourite Quote")}
+          onChange={this.handleChange("favouritequote")}
           variant="outlined"
           style={{ opacity: "0.5", backgroundColor: "#fff" }}
         />
+        <div style={{ backgroundColor: "#ebeff5" }}>
+          <button
+            style={{
+              borderColor: "red",
+              backgroundColor: "#fff",
+              borderRadius: "100px",
+              color: "red",
+              padding: "5px 50px",
+              marginLeft: "800px"
+            }}
+          >
+            Cancel
+          </button>
+
+          <button
+            style={{
+              backgroundColor: "#428fd6",
+              borderRadius: "100px",
+              color: "white",
+              padding: "5px 50px",
+              marginTop: "50px",
+              marginLeft: "15px"
+            }}
+            onClick={newEntry}
+          >
+            Save
+          </button>
+        </div>
       </form>
     );
   }

@@ -30,34 +30,6 @@ class Form extends Component {
         <div style={{ backgroundColor: "#ebeff5" }}>
           <TextBox />
         </div>
-
-        <div style={{ backgroundColor: "#ebeff5" }}>
-          <button
-            style={{
-              borderColor: "red",
-              backgroundColor: "#fff",
-              borderRadius: "100px",
-              color: "red",
-              padding: "5px 50px",
-              marginLeft: "800px"
-            }}
-          >
-            Cancel
-          </button>
-
-          <button
-            style={{
-              backgroundColor: "#428fd6",
-              borderRadius: "100px",
-              color: "white",
-              padding: "5px 50px",
-              marginTop: "50px",
-              marginLeft: "15px"
-            }}
-          >
-            Save
-          </button>
-        </div>
       </div>
     );
   }
